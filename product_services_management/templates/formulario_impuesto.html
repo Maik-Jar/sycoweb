@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block form %}
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="mb-3 gy-2">
+            <div class="col-sm-6 ">
+                <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
+                {{field}}
+            </div>
+        </div>
+    {% endfor %}
+</form>
+
+{% endblock %}

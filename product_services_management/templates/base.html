@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="{% static '/style/bootstrap/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static '/style/css/sidebars.css' %}" >
+
+  </head>
+  <body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-4" href="#">Company name</a>
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-4 col-lg-3 d-md-block bg-light sidebar collapse ">
+          <div class="position-sticky pt-3 sidebar-sticky p-3 bg-white fs-5">
+            <ul class="list-unstyled ps-0">
+              <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                  Productos & Servicios
+                </button>
+                <div class="collapse show" id="home-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{% url 'gestion impuestos'%}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de impuestos</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Updates</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Reports</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                  Dashboard
+                </button>
+                <div class="collapse" id="dashboard-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Weekly</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Monthly</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Annually</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                  Orders
+                </button>
+                <div class="collapse" id="orders-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="border-top my-3"></li>
+              <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                  Account
+                </button>
+                <div class="collapse" id="account-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    
+        <main class="col-md-8 ms-sm-auto col-lg-9 px-md-4">
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class="">
+
+              </div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class="">
+
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+          </div>
+          
+          {% block content %}
+
+          {% endblock %}
+        </main>
+      </div>
+    </div>
+    
+
+    <script src="{% static '/style/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static '/js/sidebars.js' %}"></script>
+  </body>
+</html>

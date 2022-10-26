@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-urlpatterns= [path('', views.homepage),
-              path('gestion_impuestos/', views.gestion_impuestos, name='gestion impuestos'),
+urlpatterns= [path('gestion_impuestos/', views.gestion_impuestos, name='gestion impuestos'),
+              path('formulario_impuesto/', views.form_impuesto, name='formulario impuestos'),
 
 ]

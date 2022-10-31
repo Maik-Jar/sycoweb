@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
-from .forms import FormImpuesto
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import FormCrearImpuesto, FormModificarImpuesto
 from .models import Impuesto
 import json
 # Create your views here.
@@ -10,8 +10,8 @@ def gestion_impuestos(request):
 
     if request.method == 'GET':
         impuestos = Impuesto.objects.all()
-        form = FormImpuesto()
-        return render(request, 'tabla_impuestos.html', {'impuestos': impuestos, 'form': form})
+        
+        return render(request, 'tabla_impuestos.html', {'impuestos': impuestos})
 
     else:
 
@@ -26,11 +26,11 @@ def gestion_impuestos(request):
             return JsonResponse({'data': data})
 
 
-def form_impuesto(request):
+def crear_impuesto(request):
 
     if request.method == 'GET':
-        form = FormImpuesto()
-        return render(request, 'formulario_impuesto.html', {'form': form})
+        
+        return render(request, 'formulario_impuesto.html', {'form': FormCrearImpuesto})
 
     else:
 
@@ -40,6 +40,26 @@ def form_impuesto(request):
 
         if json_file['codigo'] == 1:
 
-            form = FormImpuesto(instance=Impuesto.objects.get(
-                id=json_file['impuestoid']))
-            return HttpResponse({'form': form})
+            pass
+
+def modificar_impuesto(request, idimpuesto):
+
+    if request.method == 'GET':
+
+        impuesto= get_object_or_404(Impuesto, pk= idimpuesto)
+
+        formimpuesto = FormModificarImpuesto(instance= impuesto)
+
+        return render(request, 'formulario_impuesto.html', {'form': formimpuesto})
+    
+    else:
+        
+        impuesto= get_object_or_404(Impuesto, pk= idimpuesto)
+
+        formimpuesto = FormModificarImpuesto(request.POST, instance= impuesto)
+
+        if formimpuesto.is_valid():
+            formimpuesto.save()
+            return redirect('gestion impuestos')
+        else:
+            return render(request, 'formulario_impuesto.html', {'form': formimpuesto, 'error':'Formulario invalido'})

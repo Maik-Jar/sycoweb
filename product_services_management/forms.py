@@ -26,10 +26,20 @@ class FormServicio(forms.ModelForm):
         model = Servicio
         fields = ['codigo', 'descripcion', 'precio']
 
-class FormCategoria(forms.ModelForm):
+class FormCrearCategoria(forms.ModelForm):
     class Meta:
-        model = Categoria
-        fields = ['descripcion', 'estado']
+        model= Categoria
+        fields= ['nombre']
+        widgets= {'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre de la categoria.'}),
+                  }
+
+class FormModificarCategoria(forms.ModelForm):
+    class Meta:
+        model= Categoria
+        fields= ['nombre', 'estado']
+        widgets= {'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre de la categoria.'}),
+                  'estado':forms.Select(attrs={'class':'form-select'}, choices=[(False, 'Inactivo'), (True, 'Activo')]),
+        }
 
 class FormProducto(forms.ModelForm):
     class Meta:

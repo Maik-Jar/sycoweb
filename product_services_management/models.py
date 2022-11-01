@@ -24,7 +24,7 @@ class Servicio(models.Model):
     precio= models.DecimalField(max_digits=12, decimal_places=2)
 
 class Categoria(models.Model):
-    descripcion= models.CharField(max_length=20)
+    nombre= models.CharField(max_length=20)
     estado= models.BooleanField(default=True)
     creado= models.DateTimeField(auto_now_add=True)
     actualizado= models.DateTimeField(auto_now=True)

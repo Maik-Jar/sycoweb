@@ -3,8 +3,12 @@
 {% block content %}
 
 {% if error %}
-<div class="alert alert-danger" role="alert">
+  <div class="alert alert-danger" role="alert">
     {{error}}
+  </div>
+{% elif success %}
+  <div class="alert alert-success" role="alert">
+    {{success}}
   </div>
 {% endif %}
 
@@ -28,7 +32,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ¿Esta seguro que desea guardar los cambios?
+              ¿Esta seguro que desea guardar crear este nuevo impuesto?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -40,10 +44,10 @@
 </form>
 <br>
 <div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Modificar
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Guardar
     </button>
-    <a class="btn btn-danger" href="{% url 'gestion impuestos' %}">Volver</a>
+    <a class="btn btn-secondary" href="{% url 'gestion impuestos' %}">Volver</a>
   </div>
 
 

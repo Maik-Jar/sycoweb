@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+    
+    <div class="row">
+        <div class="col-md-3">
+            <select class="form-select" id="inputGroupSelect01">
+                {% for field in form %}
+                <option value="{{field.label}}" selected>{{field.label}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-7">
+            <div class="input-group mb-3 ">
+                <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-primary" href="{% url 'crear impuesto' %}">Nuevo Impuesto</a>
+        </div>
+    </div>
+    <table class="table table-hover align-middle">
+        <thead class="text-white" style="background-color: #0E4749;">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Detalle</th>
+                <th scope="col"></th>
+                <th scope="col">Porcentaje</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <div data-bs-spy="scroll" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2">
+                {% for imp in impuestos %}
+                <tr>
+                    <th scope="row">{{imp.id}}</th>
+                    <td>{{imp.nombre}}</td>
+                    <td colspan="2">{{imp.detalle}}</td>
+                    <td>{{imp.porcentaje}}</td>
+                    <td>{% if imp.estado %}Activo{% else %}Inactivo{% endif %}</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="{% url 'modificar impuesto' imp.id %}" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" style="fill:#FFF"><path d="M5 19h1.4l8.625-8.625-1.4-1.4L5 17.6ZM19.3 8.925l-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Zm-3.525-.725-.7-.7 1.4 1.4Z"/></svg>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" style="fill:#FFF"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21ZM17 6H7v13h10ZM9 17h2V8H9Zm4 0h2V8h-2ZM7 6v13Z"/></svg>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </div>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+        
+            <li class="page-item {% if not impuestos.has_previous %} disabled {% endif %}">
+                <a class="page-link" {% if impuestos.has_previous %} href="?page={{ impuestos.previous_page_number }}" {% endif %}>Previous</a>
+            </li>
+            
+            {% for i in impuestos.paginator.page_range %}
+  
+              {% if i == impuestos.number %}
+                  <li class="page-item active">
+                      <a class="page-link" href="#">{{ i }}</a>
+                  </li>
+              {% else %}
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+              {% endif %}
+              
+          {% endfor %}
+          
+          <li class="page-item {% if not impuestos.has_next %} disabled {% endif %}" >
+            <a class="page-link" {% if impuestos.has_next %} href="?page={{ impuestos.next_page_number }}" {% endif %}>Next</a>
+          </li>
+        </ul>
+      </nav>
+    
+{% endblock %}

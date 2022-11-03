@@ -15,7 +15,7 @@
 <form method="post" id="form_categoria">
     {% csrf_token %}
 
-    {% for field in form %}
+    {% for field in formservicio %}
         <div class="mb-3 gy-2">
             <div class="col-sm-8 ">
                 <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
@@ -23,16 +23,21 @@
             </div>
         </div>
     {% endfor %}
-
+    <div class="mb-3 gy-2">
+      <div class="col-sm-8 ">
+          <label for="{{ formitem.name }}" class="form-label fs-5">{{formitem.label}}</label>
+          {{formitem}}
+      </div>
+    </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar cambios</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Crear nuevo servicio</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ¿Esta seguro que desea crear esta nueva categoría?
+              ¿Esta seguro que desea crear este nuevo servicio?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -47,7 +52,7 @@
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Guardar
     </button>
-    <a class="btn btn-secondary" href="{% url 'gestion categorias' %}">Volver</a>
+    <a class="btn btn-secondary" href="{% url 'gestion servicios' %}">Volver</a>
   </div>
 
 

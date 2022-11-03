@@ -12,16 +12,24 @@
   </div>
 {% endif %}
 
-<form method="post" id="form_categoria">
+<form method="post" id="form_servicio">
     {% csrf_token %}
 
-    {% for field in form %}
+    {% for field in formservicio %}
         <div class="mb-3 gy-2">
             <div class="col-sm-8 ">
                 <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
                 {{field}}
             </div>
         </div>
+    {% endfor %}
+    {% for field in formitem %}
+      <div class="mb-3 gy-2">
+          <div class="col-sm-8 ">
+              <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
+              {{field}}
+          </div>
+      </div>
     {% endfor %}
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,7 +40,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ¿Esta seguro que desea crear esta nueva categoría?
+              ¿Esta seguro que desea guardar los cambios?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -44,11 +52,11 @@
 </form>
 <br>
 <div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Guardar
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Modificar
     </button>
-    <a class="btn btn-secondary" href="{% url 'gestion categorias' %}">Volver</a>
-  </div>
+    <a class="btn btn-secondary" href="{% url 'gestion servicios' %}">Volver</a>
+</div>
 
 
 

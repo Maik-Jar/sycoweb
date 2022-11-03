@@ -11,8 +11,10 @@ class Impuesto(models.Model):
     creado= models.DateTimeField(auto_now_add=True)
     actualizado= models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.nombre
+
 class Item(models.Model):
-    codigo= models.IntegerField()
     impuesto= models.ForeignKey(Impuesto, on_delete=models.CASCADE)
     estado= models.BooleanField(default=True)
     creado= models.DateTimeField(auto_now_add=True)

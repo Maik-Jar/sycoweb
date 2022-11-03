@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Impuesto, Servicio, Categoria, Producto
+from .models import Impuesto, Item, Servicio, Categoria, Producto
 
 class FormCrearImpuesto(forms.ModelForm): 
     class Meta:
@@ -21,11 +21,6 @@ class FormModificarImpuesto(forms.ModelForm):
                   'estado': forms.Select(attrs={'class':'form-select'}, choices=[(False, 'Inactivo'), (True, 'Activo')]),
         }
 
-class FormServicio(forms.ModelForm):
-    class Meta:
-        model = Servicio
-        fields = ['codigo', 'descripcion', 'precio']
-
 class FormCrearCategoria(forms.ModelForm):
     class Meta:
         model= Categoria
@@ -41,7 +36,29 @@ class FormModificarCategoria(forms.ModelForm):
                   'estado':forms.Select(attrs={'class':'form-select'}, choices=[(False, 'Inactivo'), (True, 'Activo')]),
         }
 
+class FormCrearItem(forms.ModelForm):
+    class Meta:
+        model= Item
+        fields= ['impuesto']
+        widgets= {'impuesto':forms.Select(attrs={'class':'form-select'})}
+
+class FormModificarItem(forms.ModelForm):
+    class Meta:
+        model= Item
+        fields= ['impuesto', 'estado']
+        widgets= {'impuesto':forms.Select(attrs={'class':'form-select'}),
+                  'estado':forms.Select(attrs={'class':'form-select'}, choices=[(False, 'Inactivo'), (True, 'Activo')])
+                }
+
 class FormProducto(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['codigo', 'descripcion', 'precio', 'cantidad']
+        fields = ['descripcion', 'precio', 'cantidad']
+
+class FormCrearServicio(forms.ModelForm):
+    class Meta:
+        model = Servicio
+        fields = ['descripcion', 'precio']
+        widgets= {'descripcion': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre del servicio.'}),
+                  'precio':forms.NumberInput(attrs={'class':'form-select'}),
+                }

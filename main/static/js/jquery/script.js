@@ -59,6 +59,6 @@ $(document).ready(function(){
         
         var url = modalBodyInput.action
 
-        modalBodyInput.action= url.replace('/1/','/'+id+'/')
+        modalBodyInput.action= url.replace('/0/','/'+id+'/')
     })
 })

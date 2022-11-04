@@ -13,4 +13,8 @@ urlpatterns= [path('gestion_impuestos/', views.gestion_impuestos, name='gestion 
               path('gestion_servicios/crear_servicio/', views.crear_servicio, name='crear servicio'),
               path('gestion_servicios/modificar_servicio/<int:iditem>/', views.modificar_servicio, name='modificar servicio'),
               path('gestion_servicios/eliminar_servicio/<int:iditem>/', views.eliminar_servicio, name='eliminar servicio'),
+              path('gestion_productos/', views.gestion_productos, name='gestion productos'),
+              path('gestion_productos/crear_producto/', views.crear_producto, name='crear producto'),
+              path('gestion_productos/modificar_producto/<int:iditem>/', views.modificar_producto, name='modificar producto'),
+              path('gestion_productos/eliminar_producto/<int:iditem>/', views.eliminar_producto, name='eliminar producto'),
 ]

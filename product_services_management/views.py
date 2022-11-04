@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import FormCrearImpuesto, FormCrearItem, FormCrearServicio, FormModificarImpuesto, FormCrearCategoria, FormModificarCategoria, FormModificarItem
+from .forms import FormCrearImpuesto, FormCrearItem, FormServicio, FormModificarImpuesto, FormCrearCategoria, FormModificarCategoria, FormModificarItem, FormProducto
 from django.core.paginator import Paginator
-from .models import Impuesto, Categoria, Item, Servicio
+from .models import Impuesto, Categoria, Item, Servicio, Producto
 import json
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -242,7 +242,7 @@ def crear_servicio(request):
     if request.method == 'GET':
 
         return render(request, 'formulario_crear_servicio.html', 
-        {'formservicio':FormCrearServicio,
+        {'formservicio':FormServicio,
          'formitem':FormCrearItem
         } )
 
@@ -251,14 +251,39 @@ def crear_servicio(request):
         formitem = FormCrearItem(request.POST)
 
         if formitem.is_valid():
-            item= formitem.save(commit= False)
-            item.estado= True
-            item.save()
 
-            servicio= Servicio(codigo= item, descripcion= request.POST['descripcion'], precio= request.POST['precio'])
-            servicio.save()
+            formservicio= FormServicio(request.POST) 
             
-            return redirect('gestion servicios')
+            if formservicio.is_valid():
+                
+                item= formitem.save(commit= False)
+                item.estado= True
+                item.save()
+                
+                servicio= formservicio.save(commit= False)
+                servicio.codigo= item
+                servicio.save()
+                
+                return redirect('gestion servicios')
+
+            else:
+
+                return render(request, 'formulario_crear_servicio.html', 
+                            {'formservicio':formservicio,
+                            'formitem':FormCrearItem,
+                            'error':'Formulario invalido, no se ha podido crear el servicio.'
+                            }
+                        )
+
+        else:
+
+            return render(request, 'formulario_crear_servicio.html', 
+                            {'formservicio':formservicio,
+                            'formitem':FormCrearItem,
+                            'error':'Formulario invalido, no se ha podido crear el servicio.'
+                            }
+                        )
+
 
 @login_required
 def modificar_servicio(request, iditem):
@@ -267,7 +292,7 @@ def modificar_servicio(request, iditem):
 
         item= get_object_or_404(Item, pk= iditem)
 
-        servicio= Servicio.objects.get(codigo= item)
+        servicio= get_object_or_404(Servicio, codigo= item)
 
         formmodificaritem= FormModificarItem(instance= item)
 
@@ -286,11 +311,12 @@ def modificar_servicio(request, iditem):
 
         if formmodificaritem.is_valid():
 
-            servicio= Servicio.objects.get(codigo= item)
+            servicio= get_object_or_404(Servicio, codigo= item)
 
             formservicio= FormCrearServicio(request.POST, instance= servicio)
 
             if formservicio.is_valid():
+
                 formmodificaritem.save()
                 formservicio.save()
 
@@ -322,6 +348,155 @@ def eliminar_servicio(request, iditem):
 
     item= get_object_or_404(Item, pk= iditem)
 
-    if request.method == 'POST':
-        item.delete()
-        return redirect('gestion servicios')
+    if get_object_or_404(Servicio, codigo= item):
+
+        if request.method == 'POST':
+            item.delete()
+            return redirect('gestion servicios')
+
+@login_required
+def gestion_productos(request):
+
+    if request.method == 'GET':
+
+        producto= Paginator(Producto.objects.all().order_by('codigo'), 5)
+
+        if request.GET.get('page'):
+
+            page_number= request.GET.get('page')
+
+            producto_page= producto.get_page(page_number)
+        
+            return render(request, 'gestion_productos.html',
+                            {'productos': producto_page,
+                             'form': FormProducto}
+                        )
+
+        else:
+
+            producto_page= producto.get_page(1)
+        
+            return render(request, 'gestion_productos.html',
+                            {'productos': producto_page,
+                             'form': FormProducto}
+                        )
+
+@login_required
+def crear_producto(request):
+    
+    if request.method == 'GET':
+
+        return render(request, 'formulario_crear_producto.html', 
+        {'formproducto':FormProducto,
+         'formitem':FormCrearItem
+        } )
+
+    else:
+
+        formitem = FormCrearItem(request.POST)
+
+        if formitem.is_valid():
+
+            formproducto = FormProducto(request.POST)
+
+            if formproducto.is_valid():
+
+                categoria= get_object_or_404(Categoria, id= request.POST['categoria'])
+
+                item= formitem.save(commit= False)
+                item.estado= True
+                item.save()
+
+                producto= formproducto.save(commit= False)
+                producto.codigo= item
+                producto.categoria= categoria
+                producto.save()
+                
+                return redirect('gestion productos')
+
+            else:
+
+                return render(request, 'formulario_crear_producto.html', 
+                            {'formproducto':FormProducto,
+                            'formitem':FormCrearItem,
+                            'error':'Formulario invalido, no se ha podido crear el producto.'
+                            }
+                        )
+
+        else:
+
+            return render(request, 'formulario_crear_producto.html', 
+                            {'formproducto':FormProducto,
+                            'formitem':FormCrearItem,
+                            'error':'Formulario invalido, no se ha podido crear el producto.'
+                            }
+                        )
+
+@login_required
+def modificar_producto(request, iditem):
+
+    if request.method == 'GET':
+
+        item= get_object_or_404(Item, pk= iditem)
+
+        producto=  get_object_or_404(Producto, codigo= item)
+
+        formmodificaritem= FormModificarItem(instance= item)
+
+        formproducto= FormProducto(instance= producto)
+
+        return render(request, 'formulario_modificar_producto.html',
+        {'formitem': formmodificaritem,
+        'formproducto': formproducto}
+        )
+    
+    else:
+        
+        item= get_object_or_404(Item, pk= iditem)
+
+        formmodificaritem= FormModificarItem(request.POST, instance= item)
+
+        if formmodificaritem.is_valid():
+
+            producto= get_object_or_404(Producto, codigo= item)
+
+            formproducto= FormProducto(request.POST, instance= producto)
+
+            if formproducto.is_valid():
+                formmodificaritem.save()
+                formproducto.save()
+
+                return render(request, 'formulario_modificar_producto.html',
+                {'formitem': formmodificaritem,
+                'formproducto': formproducto,
+                'success':'El producto ha sido modificado.'
+                }
+                )
+
+            else:
+                return render(request, 'formulario_modificar_producto.html',
+                {'formitem': formmodificaritem,
+                'formproducto': formproducto,
+                'error':'Formulario invalido, no se ha podido modificar el producto.'
+                }
+                )
+
+        else:
+            return render(request, 'formulario_modificar_producto.html',
+                {'formitem': formmodificaritem,
+                'formproducto': formproducto,
+                'error':'Formulario invalido, no se ha podido modificar el producto.'
+                }
+                    )
+                    
+@login_required
+def eliminar_producto(request, iditem):
+    
+    item= get_object_or_404(Item, pk= iditem)
+
+    if get_object_or_404(Producto, codigo= item):
+
+        if request.method == 'POST':
+            item.delete()
+            return redirect('gestion productos')
+

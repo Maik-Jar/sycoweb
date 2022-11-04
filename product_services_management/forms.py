@@ -53,12 +53,17 @@ class FormModificarItem(forms.ModelForm):
 class FormProducto(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['descripcion', 'precio', 'cantidad']
+        fields = ['nombre', 'categoria', 'precio', 'cantidad']
+        widgets= {'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre del producto.'}),
+                  'precio': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Introduzca el precio del producto.'}),
+                  'categoria': forms.Select(attrs={'class':'form-select'}),
+                  'cantidad': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Introduzca la cantidad del producto.'}),
+                }
 
-class FormCrearServicio(forms.ModelForm):
+class FormServicio(forms.ModelForm):
     class Meta:
         model = Servicio
         fields = ['descripcion', 'precio']
         widgets= {'descripcion': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre del servicio.'}),
-                  'precio':forms.NumberInput(attrs={'class':'form-select'}),
+                  'precio':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Introduzca el precio del servicio.'}),
                 }

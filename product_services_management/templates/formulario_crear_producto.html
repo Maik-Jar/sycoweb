@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+{% elif success %}
+  <div class="alert alert-success" role="alert">
+    {{success}}
+  </div>
+{% endif %}
+
+<form method="post" id="form_producto">
+    {% csrf_token %}
+
+    {% for field in formproducto %}
+        <div class="mb-3 gy-2">
+            <div class="col-sm-8 ">
+                <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
+                {{field}}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="mb-3 gy-2">
+      <div class="col-sm-8 ">
+          <label for="{{ formitem.name }}" class="form-label fs-5">{{formitem.label}}</label>
+          {{formitem}}
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Crear nuevo servicio</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ¿Esta seguro que desea crear este nuevo producto?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</form>
+<br>
+<div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-end">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Guardar
+    </button>
+    <a class="btn btn-secondary" href="{% url 'gestion productos' %}">Volver</a>
+  </div>
+
+
+
+{% endblock %}

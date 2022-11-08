@@ -12,7 +12,7 @@
   </div>
 {% endif %}
 
-<form method="post" id="form_producto">
+<form method="post" id="form_producto" class="needs-validation" novalidate>
     {% csrf_token %}
 
     {% for field in formproducto %}
@@ -20,6 +20,9 @@
             <div class="col-sm-8 ">
                 <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
                 {{field}}
+                <div class="invalid-feedback">
+                  Por favor, llene este campo.
+                </div>
             </div>
         </div>
     {% endfor %}
@@ -27,6 +30,9 @@
       <div class="col-sm-8 ">
           <label for="{{ formitem.name }}" class="form-label fs-5">{{formitem.label}}</label>
           {{formitem}}
+          <div class="invalid-feedback">
+            Por favor, seleccione un impuesto.
+          </div>
       </div>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -40,7 +40,7 @@
             {% for servicio in servicios %}
             <tr>
                 <th scope="row" colspan="2">{{servicio.codigo.id}}</th>
-                <td colspan="2">{{servicio.descripcion}}</td>
+                <td colspan="2">{{servicio.nombre}}</td>
                 <td>{{servicio.precio}}</td>
                 <td>{{servicio.codigo.impuesto}}</td>
                 <td>{% if servicio.codigo.estado %}Activo{% else %}Inactivo{% endif %}</td>

@@ -20,6 +20,9 @@
             <div class="col-sm-8 ">
                 <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
                 {{field}}
+                <div class="invalid-feedback">
+                  Por favor, llene esta campo.
+                </div>
             </div>
         </div>
     {% endfor %}
@@ -28,6 +31,9 @@
           <div class="col-sm-8 ">
               <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
               {{field}}
+              <div class="invalid-feedback">
+                Por favor, llene esta campo.
+              </div>
           </div>
       </div>
     {% endfor %}
@@ -57,7 +63,6 @@
     </button>
     <a class="btn btn-secondary" href="{% url 'gestion servicios' %}">Volver</a>
 </div>
-
 
 
 {% endblock %}

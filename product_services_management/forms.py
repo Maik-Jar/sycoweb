@@ -1,4 +1,3 @@
-
 from django import forms
 from .models import Impuesto, Item, Servicio, Categoria, Producto
 
@@ -63,7 +62,7 @@ class FormProducto(forms.ModelForm):
 class FormServicio(forms.ModelForm):
     class Meta:
         model = Servicio
-        fields = ['descripcion', 'precio']
-        widgets= {'descripcion': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre del servicio.'}),
+        fields = ['nombre', 'precio']
+        widgets= {'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre del servicio.'}),
                   'precio':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Introduzca el precio del servicio.'}),
                 }

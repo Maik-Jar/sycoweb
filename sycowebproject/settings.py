@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'product_services_management',
     'users_management',
+    'customers_management',
     'crispy_forms',
 ]
 

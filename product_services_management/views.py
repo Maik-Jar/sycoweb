@@ -269,7 +269,7 @@ def crear_servicio(request):
             else:
 
                 return render(request, 'formulario_crear_servicio.html', 
-                            {'formservicio':formservicio,
+                            {'formservicio':FormServicio,
                             'formitem':FormCrearItem,
                             'error':'Formulario invalido, no se ha podido crear el servicio.'
                             }
@@ -278,12 +278,11 @@ def crear_servicio(request):
         else:
 
             return render(request, 'formulario_crear_servicio.html', 
-                            {'formservicio':formservicio,
+                            {'formservicio':FormServicio,
                             'formitem':FormCrearItem,
                             'error':'Formulario invalido, no se ha podido crear el servicio.'
                             }
                         )
-
 
 @login_required
 def modificar_servicio(request, iditem):
@@ -296,7 +295,7 @@ def modificar_servicio(request, iditem):
 
         formmodificaritem= FormModificarItem(instance= item)
 
-        formservicio= FormCrearServicio(instance= servicio)
+        formservicio= FormServicio(instance= servicio)
 
         return render(request, 'formulario_modificar_servicio.html',
         {'formitem': formmodificaritem,
@@ -313,7 +312,7 @@ def modificar_servicio(request, iditem):
 
             servicio= get_object_or_404(Servicio, codigo= item)
 
-            formservicio= FormCrearServicio(request.POST, instance= servicio)
+            formservicio= FormServicio(request.POST, instance= servicio)
 
             if formservicio.is_valid():
 

@@ -7,5 +7,6 @@ urlpatterns= [path('home/', views.homepage, name='homepage'),
               path('signout/', views.signout, name= 'signout'),
               path('product_and_services/', include('product_services_management.urls')),
               path('users_management/', include('users_management.urls')),
+              path('customers_management/', include('customers_management.urls')),
 
 ]

@@ -108,9 +108,9 @@ def modificar_impuesto(request, idimpuesto):
 @login_required
 def eliminar_impuesto(request, idimpuesto):
 
-    impuesto= get_object_or_404(Impuesto, pk= idimpuesto)
-
     if request.method == 'POST':
+        
+        impuesto= get_object_or_404(Impuesto, pk= idimpuesto)
         impuesto.delete()
         return redirect('gestion impuestos')
 

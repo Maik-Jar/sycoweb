@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import TipoDocumento, Cliente
-from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearClienteEmpresa, FormCrearClientePersona
+from .models import TipoDocumento, Cliente, TipoCliente
+from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearTipoCliente, FormModificarTipoCliente
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -99,6 +99,99 @@ def eliminar_tipo_documento(request, idtipodocumento):
         tipodocumento= get_object_or_404(TipoDocumento, pk= idtipodocumento)
         tipodocumento.delete()
         return redirect('gestion tipo documento')
+
+@login_required
+def gestion_tipo_cliente(request):
+
+    if request.method == 'GET':
+
+        tipo_cliente= Paginator(TipoCliente.objects.all().order_by('id'), 5)
+
+        if request.GET.get('page'):
+
+            page_number= request.GET.get('page')
+
+            tipo_cliente_page= tipo_cliente.get_page(page_number)
+        
+            return render(request, 'gestion_tipo_clientes.html',
+                            {'tipoclientes': tipo_cliente_page,
+                             'form': FormCrearTipoCliente}
+                        )
+
+        else:
+
+            tipo_cliente_page= tipo_cliente.get_page(1)
+
+            return render(request, 'gestion_tipo_clientes.html',
+                            {'tipoclientes': tipo_cliente_page,
+                             'form': FormCrearTipoCliente}
+                        )
+
+@login_required
+def crear_tipo_cliente(request):
+
+    if request.method == 'GET':
+
+        return render(request, 'formulario_crear_tipo_cliente.html', {'form':FormCrearTipoCliente})
+
+    else:
+
+        formulario_tipo_cliente= FormCrearTipoCliente(request.POST)
+
+        if formulario_tipo_cliente.is_valid():
+
+            formulario_tipo_cliente.save()
+
+            return redirect('gestion tipo cliente')
+
+        else:
+
+            return render(request, 'formulario_crear_tipo_cliente.html',                               {'form':formulario_tipo_cliente,
+                'error':'Formularion invalido, no se ha podido crear tipo de cliente.'
+            })
+
+@login_required
+def modificar_tipo_cliente(request, idtipo_cliente):
+
+    if request.method == 'GET':
+
+        tipo_cliente= get_object_or_404(TipoCliente, pk= idtipo_cliente)
+
+        form_modificar_tipo_cliente= FormModificarTipoCliente(instance=tipo_cliente )
+
+        return render(request, 'formulario_modificar_tipo_cliente.html', {'form':form_modificar_tipo_cliente})
+
+    else:
+
+        tipo_cliente= get_object_or_404(TipoCliente, pk= idtipo_cliente)
+
+        form_modificar_tipo_cliente= FormModificarTipoCliente(request.POST, instance=tipo_cliente )
+
+        if form_modificar_tipo_cliente.is_valid():
+
+            form_modificar_tipo_cliente.save()
+
+            return render(request, 'formulario_modificar_tipo_cliente.html', 
+                            {'form':form_modificar_tipo_cliente,
+                            'success':'El tipo de cliente ha sido modificado.'}
+                        )
+
+        else:
+
+            return render(request, 'formulario_modificar_tipo_cliente.html',
+                    {'form': form_modificar_tipo_cliente,
+                    'error':'Formulario invalido, no se ha podido realizar los cambios.'
+                    }
+            )
+
+@login_required
+def eliminar_tipo_cliente(request, idtipo_cliente):
+
+     if request.method == 'POST':
+
+        tipo_cliente= get_object_or_404(TipoCliente, pk= idtipo_cliente)
+        tipo_cliente.delete()
+        return redirect('gestion tipo cliente')
 
 @login_required
 def gestion_clientes(request):

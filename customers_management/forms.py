@@ -32,9 +32,11 @@ class FormCrearTipoCliente(forms.ModelForm):
     class Meta:
         model= TipoCliente
         fields= ['nombre']
-        widgets= {'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre del tipo de cliente.'})}
+        widgets= {'nombre': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Escriba el nombre del tipo de cliente.'})
+        }
 
-class FormModificarTipoDocumento(forms.ModelForm):
+
+class FormModificarTipoCliente(forms.ModelForm):
 
     class Meta:
         model= TipoCliente

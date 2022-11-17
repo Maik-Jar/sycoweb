@@ -122,6 +122,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+#     '/main/static/',
+#     '/customers_management/static/',
+# ]
+
+# STATICFILES_FINDERS = [
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# ]
+
 LOGIN_URL= '/signin'
 
 # Default primary key field type

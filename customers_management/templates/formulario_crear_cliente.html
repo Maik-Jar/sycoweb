@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{error}}
+    </div>
+    {% elif success %}
+    <div class="alert alert-success" role="alert">
+        {{success}}
+    </div>
+    {% endif %}
+
+    <form id="form_crear_cliente" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="mb-3 gy-2" id="{{ field.id }}">
+                <div class="col-sm-8 ">
+                    <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
+                    {{field}}
+                    <div class="invalid-feedback">
+                    Por favor, llene este campo.
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar creación</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Esta seguro que desea crear este nuevo cliente?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-end mt-5">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Guardar
+        </button>
+        <a class="btn btn-secondary" href="{% url 'gestion clientes' %}">Volver</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static '/js/script.js' %}"></script>
+
+<script src="{% static '/js/validationscript.js' %}"></script>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 from .models import TipoDocumento, Cliente, TipoCliente
-from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearTipoCliente, FormModificarTipoCliente
+from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearTipoCliente, FormModificarTipoCliente, FormCrearClienteEmpresa, FormCrearClientePersona, FormCliente
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -219,3 +220,75 @@ def gestion_clientes(request):
                             {'clientes': cliente_page,
                              'form': FormCrearClientePersona}
                         )
+
+@login_required
+def crear_cliente(request):
+
+    if request.method == 'GET':
+        
+        # if request.GET.get('clientType'):
+            
+        #     tipo_de_cliente = int(request.GET.get('clientType'))
+
+        #     if tipo_de_cliente == 2:
+
+        #         return JsonResponse({'form_subcliente':FormCrearClientePersona()})
+
+        #     else:
+        #         print('hola 2')
+        #         return render(request, 'formulario_crear_cliente.html', {'form_cliente':FormCliente, 'form_subcliente':FormCrearClienteEmpresa})
+
+        # else:
+        
+        return render(request, 'formulario_crear_cliente.html', {'form':FormCliente})
+
+    else:
+
+        try:
+            tipo_de_cliente = int(request.POST.get('tipo'))
+
+            if tipo_de_cliente == 1:
+
+                form_crear_cliente = FormCrearClienteEmpresa(request.POST)
+
+                if form_crear_cliente.is_valid():
+
+                    form_crear_cliente.save()
+
+                    return redirect('gestion clientes')
+
+                else: 
+                    
+                    form_cliente = FormCliente(request.POST)
+
+                    return render(request, 'formulario_crear_cliente.html',
+                                  {'form':form_cliente,
+                                  'error':'No se ha podido crear el cliente, formulario invalido.'}
+                                  )
+
+            else:
+
+                form_crear_cliente = FormCrearClientePersona(request.POST)
+
+                if form_crear_cliente.is_valid():
+
+                    form_crear_cliente.save()
+
+                    return redirect('gestion clientes')
+
+                else: 
+                    
+                    form_cliente = FormCliente(request.POST)
+
+                    return render(request, 'formulario_crear_cliente.html',
+                                  {'form':form_cliente,
+                                  'error':'No se ha podido crear el cliente, formulario invalido.'}
+                                  )
+
+        except Exception as error: 
+        
+            return render(request, 'formulario_crear_cliente.html',
+                                  {'form':FormCliente,
+                                  'error':'No se ha podido crear el cliente. error %s.' %(error)}
+                        )
+        

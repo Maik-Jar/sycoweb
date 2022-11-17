@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <a class="btn btn-primary" href="{# url 'crear producto' #}">Nuevo Cliente</a>
+            <a class="btn btn-primary" href="{% url 'crear cliente' %}">Nuevo Cliente</a>
         </div>
     </div>
     <br>
@@ -39,7 +39,7 @@
             {% for cliente in clientes %}
             <tr>
                 <th scope="row">{{cliente.id}}</th>
-                <td>{% if cliente.tipo.id == 0 %}{{cliente.nombre}}{% else %} {{cliente.razon_social}} {% endif %}</td>
+                <td>{% if cliente.tipo.id == 2 %} {{cliente.nombre}} {{cliente.apellido1}} {{cliente.apellido2}} {% else %} {{cliente.razon_social}} {% endif %}</td>
                 <td>{{cliente.tipo_documento}}</td>
                 <td>{{cliente.iddocumento}}</td>
                 <td>{{cliente.tipo}}</td>
@@ -51,8 +51,9 @@
                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalgestion" data-bs-whatever="{#{producto.codigo.id}#}:{#{producto.nombre}#}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" style="fill:#FFF"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21ZM17 6H7v13h10ZM9 17h2V8H9Zm4 0h2V8h-2ZM7 6v13Z"/></svg>
                     </button>
-
                 </td>
+            {% empty %}
+                <th scope="row" colspan="7" class="text-center"> No hay cliente</th>
             </tr>
             {% endfor %}
         </tbody>

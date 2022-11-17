@@ -21,14 +21,14 @@ class TipoCliente(models.Model):
         return self.nombre
 
 class Cliente(models.Model):
-    tipo= models.ForeignKey(TipoCliente, on_delete= models.CASCADE)
+    tipo= models.ForeignKey(TipoCliente, on_delete= models.CASCADE, default=2)
     iddocumento= models.CharField(max_length=12, unique= True)
     tipo_documento= models.ForeignKey(TipoDocumento, on_delete= models.CASCADE)
     razon_social= models.CharField(max_length=100, unique= True, null= True)
     nombre= models.CharField(max_length=25, null= True)
     apellido1= models.CharField(max_length= 15, null= True)
-    apellido2= models.CharField(max_length= 15, null= True)
-    telefono= models.CharField(max_length=12, null= True)
+    apellido2= models.CharField(max_length= 15, null= True, blank= True)
+    telefono= models.CharField(max_length=15, null= True)
     direccion= models.CharField(max_length=60, null= True)
     email= models.EmailField(max_length=30, null= True)
     estado= models.BooleanField(default=True)

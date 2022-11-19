@@ -4,6 +4,7 @@ from .models import TipoDocumento, Cliente, TipoCliente
 from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearTipoCliente, FormModificarTipoCliente, FormCrearClienteEmpresa, FormCrearClientePersona, FormCliente
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+import json
 # Create your views here.
 
 
@@ -226,21 +227,21 @@ def crear_cliente(request):
 
     if request.method == 'GET':
         
-        # if request.GET.get('clientType'):
-            
-        #     tipo_de_cliente = int(request.GET.get('clientType'))
+        if request.GET.get('clientType'):
 
-        #     if tipo_de_cliente == 2:
+            tipo_de_cliente = int(request.GET.get('clientType'))
 
-        #         return JsonResponse({'form_subcliente':FormCrearClientePersona()})
+            if tipo_de_cliente == 2:
 
-        #     else:
-        #         print('hola 2')
-        #         return render(request, 'formulario_crear_cliente.html', {'form_cliente':FormCliente, 'form_subcliente':FormCrearClienteEmpresa})
+                return render(request, 'formulario_crear_cliente.html', {'form':FormCrearClientePersona})
 
-        # else:
-        
-        return render(request, 'formulario_crear_cliente.html', {'form':FormCliente})
+            else:
+
+                return render(request, 'formulario_crear_cliente.html', {'form':FormCrearClienteEmpresa(initial= {'tipo':1, 'tipo_documento':4})})
+
+        else:
+
+            return render(request, 'formulario_crear_cliente.html', {'form':FormCrearClientePersona(initial= {'tipo':2, 'tipo_documento':1})})
 
     else:
 

@@ -23,7 +23,7 @@ class TipoCliente(models.Model):
 class Cliente(models.Model):
     tipo= models.ForeignKey(TipoCliente, on_delete= models.CASCADE, default=2)
     iddocumento= models.CharField(max_length=12, unique= True)
-    tipo_documento= models.ForeignKey(TipoDocumento, on_delete= models.CASCADE)
+    tipo_documento= models.ForeignKey(TipoDocumento, on_delete= models.CASCADE, default=1)
     razon_social= models.CharField(max_length=100, unique= True, null= True)
     nombre= models.CharField(max_length=25, null= True)
     apellido1= models.CharField(max_length= 15, null= True)

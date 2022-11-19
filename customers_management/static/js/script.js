@@ -64,66 +64,68 @@ $(document).ready(function(){
     // })
 
     const select_tipo_cliente = document.getElementById('id_tipo')
-    const inputrazon_social = document.getElementById('id_razon_social')
-    const inputnombre = document.getElementById('id_nombre')
-    const inputapellido1 = document.getElementById('id_apellido1')
-    const inputapellido2 = document.getElementById('id_apellido2')
 
-    inputrazon_social.removeAttribute('required')
-    const divparent_inputrazon_social = inputrazon_social.parentNode
-    divparent_inputrazon_social.hidden = true
+    // const inputrazon_social = document.getElementById('id_razon_social')
+    // const inputnombre = document.getElementById('id_nombre')
+    // const inputapellido1 = document.getElementById('id_apellido1')
+    // const inputapellido2 = document.getElementById('id_apellido2')
 
-    select_tipo_cliente.addEventListener('change', event => {
+    // inputrazon_social.removeAttribute('required')
+    // const divparent_inputrazon_social = inputrazon_social.parentNode
+    // divparent_inputrazon_social.hidden = true
+
+    select_tipo_cliente.addEventListener('change', async (event) => {
 
         if (event.target.value == 2){ // Cuando sea una Persona 
-            // Razon social
-            inputrazon_social.removeAttribute('required')
-            divparent_inputrazon_social.hidden = true
-            // Nombre
-            inputnombre.setAttribute('required', true)
-            const divparent_inputnombre = inputnombre.parentNode
-            divparent_inputnombre.hidden = false
-            // 1er. Apellido
-            inputapellido1.setAttribute('required', true)
-            const divparent_inputapellido1 = inputapellido1.parentNode
-            divparent_inputapellido1.hidden = false
-            // 2do. Apellido
-            inputapellido2.setAttribute('required', true)
-            const divparent_inputapellido2 = inputapellido2.parentNode
-            divparent_inputapellido2.hidden = false
+            // // Razon social
+            // inputrazon_social.removeAttribute('required')
+            // divparent_inputrazon_social.hidden = true
+            // // Nombre
+            // inputnombre.setAttribute('required', true)
+            // const divparent_inputnombre = inputnombre.parentNode
+            // divparent_inputnombre.hidden = false
+            // // 1er. Apellido
+            // inputapellido1.setAttribute('required', true)
+            // const divparent_inputapellido1 = inputapellido1.parentNode
+            // divparent_inputapellido1.hidden = false
+            // // 2do. Apellido
+            // inputapellido2.setAttribute('required', true)
+            // const divparent_inputapellido2 = inputapellido2.parentNode
+            // divparent_inputapellido2.hidden = false
+            const r = event.target.value
+            
+            window.location.href= `?clientType=${r}`
+            
+            
+            
 
         } else if (event.target.value == 1) { // Cuando sea una Empresa
-            // Razon social
-            inputrazon_social.setAttribute('required', true)
-            const divparent_inputrazon_social = inputrazon_social.parentNode
-            divparent_inputrazon_social.hidden = false
-            // Nombre
-            inputnombre.removeAttribute('required')
-            const divparent_inputnombre = inputnombre.parentNode
-            divparent_inputnombre.hidden = true
-            // 1er. Apellido
-            inputapellido1.removeAttribute('required')
-            const divparent_inputapellido1 = inputapellido1.parentNode
-            divparent_inputapellido1.hidden = true
-            // 2do. Apellido
-            inputapellido2.removeAttribute('required')
-            const divparent_inputapellido2 = inputapellido2.parentNode
-            divparent_inputapellido2.hidden = true
+            // // Razon social
+            // inputrazon_social.setAttribute('required', true)
+            // const divparent_inputrazon_social = inputrazon_social.parentNode
+            // divparent_inputrazon_social.hidden = false
+            // // Nombre
+            // inputnombre.removeAttribute('required')
+            // const divparent_inputnombre = inputnombre.parentNode
+            // divparent_inputnombre.hidden = true
+            // // 1er. Apellido
+            // inputapellido1.removeAttribute('required')
+            // const divparent_inputapellido1 = inputapellido1.parentNode
+            // divparent_inputapellido1.hidden = true
+            // // 2do. Apellido
+            // inputapellido2.removeAttribute('required')
+            // const divparent_inputapellido2 = inputapellido2.parentNode
+            // divparent_inputapellido2.hidden = true
 
+            const r = event.target.value
+            
+            window.location.href= `?clientType=${r}`
+
+            
 
         }
 
     })
-
-    // const select_tipo_cliente = document.getElementById('id_tipo')
-
-    // select_tipo_cliente.addEventListener('change', async event => {
-
-    //     const valor = event.target.value
-
-    //     const respuesta = await fetch(`?clientType=${valor}`)
-
-    //     console.log(respuesta.form_subcliente)
-
-    // })
+    
 })
+

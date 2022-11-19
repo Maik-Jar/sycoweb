@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div>
+<div class="col-8">
     {% if error %}
     <div class="alert alert-danger" role="alert">
         {{error}}
@@ -15,19 +15,17 @@
 
     <form id="form_crear_cliente" method="post" class="needs-validation" novalidate>
         {% csrf_token %}
-
-        {% for field in form %}
-            <div class="mb-3 gy-2" id="{{ field.id }}">
-                <div class="col-sm-8 ">
+        <div class="row">
+            {% for field in form %}
+                <div class="{% if field.name == 'nombre' or field.name == 'direccion' or field.name == 'tipo'%} col-md-8 {% else %} col-md-5 {% endif %} mb-2">
                     <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
                     {{field}}
                     <div class="invalid-feedback">
                     Por favor, llene este campo.
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-
+            {% endfor %}
+        </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -46,7 +44,7 @@
             </div>
         </div>
     </form>
-    <div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-end mt-5">
+    <div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-start mt-3">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Guardar
         </button>

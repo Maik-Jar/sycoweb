@@ -27,7 +27,7 @@
                             Por favor, llene este campo.
                         </div>
                     </div>
-                    <div class="col-md-9"></div>
+                    
                 {% elif field.name == 'direccion' %}
                     <div class="col-md-6">
                         <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
@@ -73,6 +73,15 @@
                         </div>
                     </div>
                     <div class="col-md-6"></div>
+                {% elif field.name == 'estado' %}
+                    <div class="col-md-3">
+                        <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
+                        {{field}}
+                        <div class="invalid-feedback">
+                            Por favor, llene este campo.
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
                 {% else %}
                     <div class="col-md-3 mb-2">
                         <label for="{{ field.name }}" class="form-label fs-5">{{field.label}}</label>
@@ -88,11 +97,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar creación</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar cambios</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ¿Esta seguro que desea crear este nuevo cliente?
+                        ¿Esta seguro que desea guardar los cambios?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -103,8 +112,8 @@
         </div>
     </form>
     <div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-start mt-3">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Guardar
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Modificar
         </button>
         <a class="btn btn-secondary" href="{% url 'gestion clientes' %}">Volver</a>
     </div>
@@ -112,7 +121,5 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static '/js/script_formulario_cliente.js' %}"></script>
-
 <script src="{% static '/js/validationscript.js' %}"></script>
 {% endblock %}

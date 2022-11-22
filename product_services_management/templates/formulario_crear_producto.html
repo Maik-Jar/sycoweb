@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 {% if error %}
@@ -60,7 +62,7 @@
     </button>
     <a class="btn btn-secondary" href="{% url 'gestion productos' %}">Volver</a>
   </div>
-
-
-
+{% endblock %}
+{% block script %}
+<script src="{% static '/js/validationscript.js' %}"></script>
 {% endblock %}

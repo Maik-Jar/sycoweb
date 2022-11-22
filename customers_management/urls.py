@@ -1,6 +1,4 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from . import views
 
 urlpatterns= [path('gestion_tipodocumento/', views.gestion_tipodocumento, name='gestion tipo documento'),
@@ -13,10 +11,8 @@ urlpatterns= [path('gestion_tipodocumento/', views.gestion_tipodocumento, name='
               path('gestion_tipo_cliente/eliminar_tipo_cliente/<int:idtipo_cliente>/', views.eliminar_tipo_cliente, name='eliminar tipo cliente'),
               path('gestion_clientes/', views.gestion_clientes, name='gestion clientes'),
               path('gestion_clientes/crear_cliente/', views.crear_cliente, name='crear cliente'),
-
-
+              path('gestion_clientes/modificar_cliente/<int:id_cliente>/', views.modificar_cliente, name='modificar cliente'),
+              path('gestion_clientes/eliminar_cliente/<int:id_cliente>/', views.eliminar_cliente, name='eliminar cliente'),
 
 
 ]
-
-urlpatterns += static(settings.STATIC_URL)

@@ -12,7 +12,7 @@ def gestion_impuestos(request):
 
     if request.method == 'GET':
 
-        impuestos= Paginator(Impuesto.objects.all().order_by('id'), 5)
+        impuestos= Paginator(Impuesto.objects.all().order_by('id'), 10)
 
         if request.GET.get('page'):
 
@@ -119,7 +119,7 @@ def gestion_categorias(request):
 
     if request.method == 'GET':
 
-        categoria= Paginator(Categoria.objects.all().order_by('id'), 5)
+        categoria= Paginator(Categoria.objects.all().order_by('id'), 10)
 
         if request.GET.get('page'):
 
@@ -214,7 +214,7 @@ def gestion_servicios(request):
 
     if request.method == 'GET':
 
-        servicio= Paginator(Servicio.objects.all().order_by('codigo'), 5)
+        servicio= Paginator(Servicio.objects.all().order_by('codigo'), 10)
 
         if request.GET.get('page'):
 
@@ -358,7 +358,7 @@ def gestion_productos(request):
 
     if request.method == 'GET':
 
-        producto= Paginator(Producto.objects.all().order_by('codigo'), 5)
+        producto= Paginator(Producto.objects.all().order_by('codigo'), 10)
 
         if request.GET.get('page'):
 

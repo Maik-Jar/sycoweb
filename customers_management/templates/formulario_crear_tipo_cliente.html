@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 {% if error %}
@@ -51,8 +53,9 @@
         Guardar
     </button>
     <a class="btn btn-secondary" href="{% url 'gestion tipo cliente' %}">Volver</a>
-  </div>
+</div>
 
-
-
+{% endblock %}
+{% block script %}
+<script src="{% static '/js/validationscript.js' %}"></script>
 {% endblock %}

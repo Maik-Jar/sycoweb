@@ -99,7 +99,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
-                <form action="{% url 'eliminar producto' 0 %}" method="post">
+                <form action="{% url 'eliminar producto' 0 %}" method="post" id="form_eliminar">
                     {% csrf_token %}
                     <button class="btn btn-danger">Eliminar</button>
                 </form>
@@ -108,4 +108,7 @@
         </div>
     </div>
     
+{% endblock %}
+{% block script %}
+<script src="{% static '/js/script_gestionModal.js' %}"></script>
 {% endblock %}

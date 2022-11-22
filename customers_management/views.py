@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
 from .models import TipoDocumento, Cliente, TipoCliente
-from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearTipoCliente, FormModificarTipoCliente, FormCrearClienteEmpresa, FormCrearClientePersona, FormCliente
+from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearTipoCliente, FormModificarTipoCliente, FormCrearClienteEmpresa, FormCrearClientePersona, FormModificarClienteEmpresa, FormModificarClientePersona
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-import json
 # Create your views here.
 
 
@@ -66,7 +64,7 @@ def modificar_tipodocumento(request, idtipodocumento):
 
         tipodocumento= get_object_or_404(TipoDocumento, pk= idtipodocumento)
 
-        formmodificartipodocumento= FormModificarTipoDocumento(instance=tipodocumento )
+        formmodificartipodocumento= FormModificarTipoDocumento(instance=tipodocumento)
 
         return render(request, 'formulario_modificar_tipo_documento.html', {'form':formmodificartipodocumento})
 
@@ -86,12 +84,11 @@ def modificar_tipodocumento(request, idtipodocumento):
                         )
 
         else:
-
             return render(request, 'formulario_modificar_tipo_documento.html',
-                    {'form': formmodificartipodocumento,
-                    'error':'Formulario invalido, no se ha podido realizar los cambios.'
-                    }
-            )
+                            {'form': formmodificartipodocumento,
+                            'error':'Formulario invalido, no se ha podido realizar los cambios.'
+                            }
+                        )
 
 @login_required
 def eliminar_tipo_documento(request, idtipodocumento):
@@ -107,7 +104,7 @@ def gestion_tipo_cliente(request):
 
     if request.method == 'GET':
 
-        tipo_cliente= Paginator(TipoCliente.objects.all().order_by('id'), 5)
+        tipo_cliente= Paginator(TipoCliente.objects.all().order_by('id'), 10)
 
         if request.GET.get('page'):
 
@@ -200,7 +197,7 @@ def gestion_clientes(request):
 
     if request.method == 'GET':
 
-        cliente= Paginator(Cliente.objects.all().order_by('id'), 5)
+        cliente= Paginator(Cliente.objects.all().order_by('id'), 10)
 
         if request.GET.get('page'):
 
@@ -232,64 +229,122 @@ def crear_cliente(request):
             tipo_de_cliente = int(request.GET.get('clientType'))
 
             if tipo_de_cliente == 2:
-
                 return render(request, 'formulario_crear_cliente.html', {'form':FormCrearClientePersona})
 
             else:
-
                 return render(request, 'formulario_crear_cliente.html', {'form':FormCrearClienteEmpresa(initial= {'tipo':1, 'tipo_documento':4})})
 
         else:
-
             return render(request, 'formulario_crear_cliente.html', {'form':FormCrearClientePersona(initial= {'tipo':2, 'tipo_documento':1})})
 
     else:
-
         try:
             tipo_de_cliente = int(request.POST.get('tipo'))
 
-            if tipo_de_cliente == 1:
-
+            if tipo_de_cliente == 1: # Es una Empresa.
                 form_crear_cliente = FormCrearClienteEmpresa(request.POST)
 
                 if form_crear_cliente.is_valid():
-
                     form_crear_cliente.save()
-
                     return redirect('gestion clientes')
 
                 else: 
-                    
-                    form_cliente = FormCliente(request.POST)
-
+                    form_cliente = FormCrearClienteEmpresa(request.POST)
                     return render(request, 'formulario_crear_cliente.html',
-                                  {'form':form_cliente,
-                                  'error':'No se ha podido crear el cliente, formulario invalido.'}
-                                  )
+                                {'form':form_cliente,
+                                'error':'No se ha podido crear el cliente, error: %s.' %(form_cliente.errors.as_text())}
+                                )
 
-            else:
+            else: # Es una Persona.
 
                 form_crear_cliente = FormCrearClientePersona(request.POST)
 
                 if form_crear_cliente.is_valid():
-
                     form_crear_cliente.save()
-
                     return redirect('gestion clientes')
 
                 else: 
-                    
-                    form_cliente = FormCliente(request.POST)
-
+                    form_cliente = FormCrearClientePersona(request.POST)
                     return render(request, 'formulario_crear_cliente.html',
-                                  {'form':form_cliente,
-                                  'error':'No se ha podido crear el cliente, formulario invalido.'}
-                                  )
+                                {'form':form_cliente,
+                                'error':'No se ha podido crear el cliente, error: %s.' %(form_cliente.errors.as_text())}
+                                )
 
         except Exception as error: 
         
             return render(request, 'formulario_crear_cliente.html',
-                                  {'form':FormCliente,
+                                  {'form':'',
                                   'error':'No se ha podido crear el cliente. error %s.' %(error)}
                         )
-        
+
+@login_required
+def modificar_cliente(request, id_cliente):
+
+    if request.method == 'GET':
+
+        cliente = get_object_or_404(Cliente, pk= id_cliente)
+
+        if cliente.tipo == 1: # Empresa
+
+            form_modificar_cliente_empresa = FormModificarClienteEmpresa(instance= cliente)
+
+            return render(request, 'formulario_modificar_cliente.html', {'form':form_modificar_cliente_empresa})
+
+        else:
+
+            form_modificar_cliente_persona = FormModificarClientePersona(instance= cliente)
+
+            return render(request, 'formulario_modificar_cliente.html', {'form':form_modificar_cliente_persona})
+
+    else:
+
+        cliente= get_object_or_404(Cliente, pk= id_cliente)
+
+        if cliente.tipo == 1: # Empresa
+
+            form_modificar_cliente_empresa = FormModificarClienteEmpresa(request.POST, instance= cliente)
+
+            if form_modificar_cliente_empresa.is_valid():
+
+                form_modificar_cliente_empresa.save()
+
+                return render(request, 'formulario_modificar_cliente.html', 
+                              {'form':form_modificar_cliente_empresa,
+                               'success':'El cliente ha sido modificado.'}
+                            )
+
+            else:
+
+                return render(request, 'formulario_modificar_cliente.html', 
+                              {'form':form_modificar_cliente_empresa,
+                               'error':'No se ha podido modificar el cliente. Error: %s.' %(form_modificar_cliente_empresa.errors.as_text())}
+                            )
+
+        else: # Persona
+
+            form_modificar_cliente_persona = FormModificarClientePersona(request.POST, instance= cliente)
+
+            if form_modificar_cliente_persona.is_valid():
+
+                form_modificar_cliente_persona.save()
+
+                return render(request, 'formulario_modificar_cliente.html', 
+                              {'form':form_modificar_cliente_persona,
+                               'success':'El cliente ha sido modificado.'}
+                            )
+
+            else:
+
+                return render(request, 'formulario_modificar_cliente.html', 
+                              {'form':form_modificar_cliente_persona,
+                               'error':'No se ha podido modificar el cliente. Error: %s.' %(form_modificar_cliente_persona.errors.as_text())}
+                            )
+
+@login_required
+def eliminar_cliente(request, id_cliente):
+
+    if request.method == 'POST':
+
+        cliente = get_object_or_404(Cliente, pk= id_cliente)
+        cliente.delete()
+        return redirect('gestion clientes')

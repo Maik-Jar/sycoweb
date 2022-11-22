@@ -42,5 +42,11 @@ class Cliente(models.Model):
     creado= models.DateTimeField(auto_now_add=True)
     actualizado= models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        if self.tipo == 1: # Empresa
+            return self.razon_social
+        else: # Persona
+            return self.nombre+' '+self.apellido1+' '+self.apellido2
+
     class Meta:
         constraints = [UniqueConstraint(fields=['iddocumento', 'tipo_documento'], name='unique_document'),]

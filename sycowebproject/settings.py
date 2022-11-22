@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'product_services_management',
     'users_management',
     'customers_management',
+    'sales_point',
     'crispy_forms',
+    'sequences.apps.SequencesConfig',
 ]
 
 MIDDLEWARE = [

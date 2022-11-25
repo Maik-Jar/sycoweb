@@ -13,6 +13,7 @@ urlpatterns= [path('gestion_tipodocumento/', views.gestion_tipodocumento, name='
               path('gestion_clientes/crear_cliente/', views.crear_cliente, name='crear cliente'),
               path('gestion_clientes/modificar_cliente/<int:id_cliente>/', views.modificar_cliente, name='modificar cliente'),
               path('gestion_clientes/eliminar_cliente/<int:id_cliente>/', views.eliminar_cliente, name='eliminar cliente'),
+              path('obtener_cliente/<int:id_tipo_documento>/<str:no_documento>/', views.obtener_cliente, name='obtener cliente'),
 
 
 ]

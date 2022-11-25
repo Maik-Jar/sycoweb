@@ -15,6 +15,11 @@ class Impuesto(models.Model):
         return self.nombre
 
 class Item(models.Model):
+    TIPO_CHOiCES= [(1, 'Servicio'),
+                    (2, 'Articulo')
+                ]
+
+    tipo= models.IntegerField(choices= TIPO_CHOiCES)
     impuesto= models.ForeignKey(Impuesto, on_delete=models.CASCADE)
     estado= models.BooleanField(default=True)
     creado= models.DateTimeField(auto_now_add=True)

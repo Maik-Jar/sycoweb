@@ -3,6 +3,7 @@ from .models import TipoDocumento, Cliente, TipoCliente
 from .forms import FormCrearTipoDocumento, FormModificarTipoDocumento, FormCrearTipoCliente, FormModificarTipoCliente, FormCrearClienteEmpresa, FormCrearClientePersona, FormModificarClienteEmpresa, FormModificarClientePersona
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -348,3 +349,19 @@ def eliminar_cliente(request, id_cliente):
         cliente = get_object_or_404(Cliente, pk= id_cliente)
         cliente.delete()
         return redirect('gestion clientes')
+
+def obtener_cliente(request, id_tipo_documento, no_documento):
+
+    if request.method == 'GET':
+
+        cliente= get_object_or_404(Cliente,tipo_documento= id_tipo_documento, iddocumento= no_documento)
+
+        if cliente.tipo == 1: # Empresa
+
+            json_cliente = {'fullname':cliente.razon_social, 'telefono':cliente.telefono}
+
+        else: # Persona
+        
+            json_cliente = {'fullname':cliente.nombre+' '+cliente.apellido1+' '+cliente.apellido2, 'telefono':cliente.telefono}
+        
+        return JsonResponse(json_cliente)

@@ -3,6 +3,8 @@ from . import views
 #
 
 urlpatterns= [path('gestion_cotizaciones/', views.gestion_cotizaciones, name='gestion cotizaciones'),
+                path('gestion_cotizaciones/crear_cotizacion/', views.crear_cotizacion, name='crear cotizacion'),
+                
 
 
 

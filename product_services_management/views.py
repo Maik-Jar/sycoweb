@@ -257,6 +257,7 @@ def crear_servicio(request):
             if formservicio.is_valid():
                 
                 item= formitem.save(commit= False)
+                item.tipo= 1
                 item.estado= True
                 item.save()
                 
@@ -403,6 +404,7 @@ def crear_producto(request):
                 categoria= get_object_or_404(Categoria, id= request.POST['categoria'])
 
                 item= formitem.save(commit= False)
+                item.tipo= 2
                 item.estado= True
                 item.save()
 
@@ -499,3 +501,20 @@ def eliminar_producto(request, iditem):
             item.delete()
             return redirect('gestion productos')
 
+def obtener_item(request, iditem):
+
+    if request.method == 'GET':
+
+        item = get_object_or_404(Item, id= iditem)
+
+        if item.tipo == 1:
+
+            json_item= {'codigo':item.id, 'nombre':item.servicio.nombre, 'precio':item.servicio.precio, 'impuesto':item.impuesto.porcentaje/100}
+
+            return JsonResponse(json_item)
+
+        else:
+
+            json_item= {'codigo':item.id, 'nombre':item.producto.nombre, 'precio':item.producto.precio, 'impuesto':item.impuesto.porcentaje/100}
+
+            return JsonResponse(json_item)

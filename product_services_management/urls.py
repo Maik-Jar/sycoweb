@@ -17,4 +17,5 @@ urlpatterns= [path('gestion_impuestos/', views.gestion_impuestos, name='gestion 
               path('gestion_productos/crear_producto/', views.crear_producto, name='crear producto'),
               path('gestion_productos/modificar_producto/<int:iditem>/', views.modificar_producto, name='modificar producto'),
               path('gestion_productos/eliminar_producto/<int:iditem>/', views.eliminar_producto, name='eliminar producto'),
+              path('obtener_item/<int:iditem>/', views.obtener_item, name='obtener item'),
 ]

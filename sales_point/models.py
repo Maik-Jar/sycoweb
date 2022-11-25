@@ -6,14 +6,14 @@ from product_services_management.models import Item
 class Cotizacion(models.Model):
 
     agnio= models.DateField(auto_now_add=True, verbose_name='Año')
-    numero= models.IntegerField(editable= False)
-    cliente= models.ForeignKey(Cliente, on_delete= models.CASCADE, default= 3)
+    numero= models.IntegerField(editable=False)
+    cliente= models.ForeignKey(Cliente, on_delete= models.CASCADE, null=True, blank=True)
     fecha_hora= models.DateTimeField(auto_now_add= True, verbose_name='Fecha / Hora')
     subtotal= models.DecimalField(max_digits=11, decimal_places=2, default=0.00)
     descuento= models.DecimalField(max_digits=11, decimal_places=2, default=0.00)
     total= models.DecimalField(max_digits=11, decimal_places=2, default=0.00)
-    estado= models.BooleanField(default= True)
-    creacion= models.DateTimeField(auto_now_add= True)
+    estado= models.BooleanField(default=True)
+    creacion= models.DateTimeField(auto_now_add=True)
     actualizado= models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -24,8 +24,8 @@ class Cotizacion(models.Model):
 
 class DetalleCotizacion(models.Model):
 
-    id_cotizacion= models.ForeignKey(Cotizacion, on_delete= models.CASCADE, default=1)
-    item= models.ForeignKey(Item, on_delete= models.CASCADE, default=11)
+    id_cotizacion= models.ForeignKey(Cotizacion, on_delete= models.CASCADE)
+    item= models.ForeignKey(Item, on_delete= models.CASCADE)
     descuento_item= models.DecimalField(max_digits=11, decimal_places=2, default=0.00)
     cantidad_item= models.IntegerField(default=1)
 

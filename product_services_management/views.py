@@ -509,12 +509,12 @@ def obtener_item(request, iditem):
 
         if item.tipo == 1:
 
-            json_item= {'codigo':item.id, 'nombre':item.servicio.nombre, 'precio':item.servicio.precio, 'impuesto':item.impuesto.porcentaje/100}
+            json_item= {'codigo':item.id, 'nombre':item.servicio.nombre, 'precio':item.servicio.precio, 'impuesto':item.impuesto.porcentaje/100, 'tipo':item.tipo}
 
             return JsonResponse(json_item)
 
         else:
 
-            json_item= {'codigo':item.id, 'nombre':item.producto.nombre, 'precio':item.producto.precio, 'impuesto':item.impuesto.porcentaje/100}
+            json_item= {'codigo':item.id, 'nombre':item.producto.nombre, 'precio':item.producto.precio, 'impuesto':item.impuesto.porcentaje/100, 'tipo':item.tipo}
 
             return JsonResponse(json_item)

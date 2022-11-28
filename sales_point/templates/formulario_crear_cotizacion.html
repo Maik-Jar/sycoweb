@@ -71,9 +71,8 @@
     <table class="table table-hover align-middle" id="tbItems">
         <thead class="text-white text-center" style="background-color: #0E4749;">
             <tr>
-                <th scope="col" class="col-1">#</th>
                 <th scope="col" class="col-1">Cod.</th>
-                <th scope="col" class="col-4">Descripción</th>
+                <th scope="col" class="col-5">Descripción</th>
                 <th scope="col" class="col-1">Precio Und.</th>
                 <th scope="col" class="col-1">Cant.</th>
                 <th scope="col" class="col-1">Itbis</th>
@@ -86,6 +85,28 @@
         </tbody>
     </table>
 </div>
+
+<div class="container mx-auto px-0">
+    <div class="row mb-3 mt-3 justify-content-end">
+        <label for="inputSubtotal" class="col-sm-2 col-form-label text-end">Sub-Total RD$:</label>
+        <div class="col-sm-2">
+          <input type="number" class="form-control" id="inputSubtotal" readonly>
+        </div>
+    </div>
+    <div class="row mb-3 justify-content-end">
+        <label for="inputDescuento" class="col-sm-2 col-form-label text-end">Descuento RD$:</label>
+        <div class="col-sm-2">
+          <input type="number" class="form-control" id="inputDescuento">
+        </div>
+    </div>
+    <div class="row mb-3 justify-content-end">
+        <label for="inputTotal" class="col-sm-2 col-form-label text-end">Total RD$:</label>
+        <div class="col-sm-2">
+          <input type="number" class="form-control" id="inputTotal" readonly>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -106,12 +127,14 @@
 </div>
 
 <br>
+
+
 <div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-end">
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Guardar
     </button>
     <a class="btn btn-secondary" href="{# url 'gestion categorias' #}">Volver</a>
-  </div>
+</div>
 {% endblock %}
 {% block script %}
 <script src="{% static '/js/validationscript.js' %}"></script>

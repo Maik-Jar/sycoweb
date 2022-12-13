@@ -4,137 +4,151 @@
 
 {% block content %}
 
-{% if error %}
-  <div class="alert alert-danger" role="alert">
-    {{error}}
-  </div>
-{% elif success %}
-  <div class="alert alert-success" role="alert">
-    {{success}}
-  </div>
-{% endif %}
-
-<div class="row mb-2 border">
-{% for field in form %}
-    {% if field.name == 'id_cliente' %}
-        {{field}}
-    {% elif field.name == 'nombre_cliente' %}
-        <div class="row mb-2 mt-2  align-items-center">
-            <label for="{{field.name}}" class="col-sm-2 text-end col-form-label fs-5" style="padding-right: 0;">{{field.label}}</label>
-            <div class="col-sm-3">
-                {{field}}
-            </div>
-        </div>
-    {% elif field.name == 'tipo_documento' %}
-        <div class="row mb-2 align-items-center">
-            <div class="col-sm-2" style="padding-right: 0;">
-                {{field}}
-            </div>
-    {% elif field.name == 'documento_cliente' %}
-            <div class="col-sm-2">
-                {{field}}
-            </div>
-            <div class="col-sm-1">
-                <button class="btn btn-primary" type="button" id="btbuscarcliente" style="width: 100%;">Buscar</button>
-            </div>
-        </div>
-    {% else %}
-        <div class="row mb-2 align-items-center">
-            <label for="{{ field.name }}" class="col-sm-2 text-end col-form-label fs-5" style="padding-right: 0;">{{field.label}}</label>
-            <div class="col-sm-2">
-                {{field}}
-            </div>
-        </div>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{error}}
+    </div>
+    {% elif success %}
+    <div class="alert alert-success" role="alert">
+        {{success}}
+    </div>
     {% endif %}
-{% endfor %}
-</div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast">
-        <div class="d-flex">
-            <div class="toast-body">
-                Hello, world! This is a toast message.
+    <div class="row mb-2 mx-0 border-bottom">
+    {# csrf_token #}
+    {% for field in form %}
+        {% if field.name == 'id_cliente' %}
+            {{field}}
+        {% elif field.name == 'nombre_cliente' %}
+            <div class="row mb-2 mt-2  align-items-center">
+                <label for="{{field.name}}" class="col-sm-2 text-end col-form-label fs-5" style="padding-right: 0;">{{field.label}}</label>
+                <div class="col-sm-3">
+                    {{field}}
+                </div>
+                <div class="col-sm-3"></div>
+                <label class="col-sm-2 text-end col-form-label fs-5" style="padding-right: 0;">No. Cotización</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" readonly id="inputNoCotizacion">
+                </div>
             </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        {% elif field.name == 'tipo_documento' %}
+            <div class="row mb-2 align-items-center">
+                <div class="col-sm-2" style="padding-right: 0;">
+                    {{field}}
+                </div>
+        {% elif field.name == 'documento_cliente' %}
+                <div class="col-sm-2">
+                    {{field}}
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-primary" type="button" id="btbuscarcliente" style="width: 100%;">Buscar</button>
+                </div>
+                <div class="col-sm-3"></div>
+                <label for="{{field.name}}" class="col-sm-2 text-end col-form-label fs-5" style="padding-right: 0;">fecha/hora</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" readonly id="inputFechaHora">
+                </div>
+            </div>
+        {% else %}
+            <div class="row mb-2 align-items-center">
+                <label for="{{ field.name }}" class="col-sm-2 text-end col-form-label fs-5" style="padding-right: 0;">{{field.label}}</label>
+                <div class="col-sm-2">
+                    {{field}}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast">
+            <div class="d-flex">
+                <div class="toast-body">
+                    
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row mb-2 align-items-center">
-    <div class="col-sm-2">
-        <input type="number" name="id" id="id_item" class="form-control" placeholder="Cod. Item">
-    </div>
-    <button type="button" class="btn btn-primary col-sm-1" id="btbuscaritem"> Buscar</button>
-</div>
- 
-<div class="col-12 border overflow-auto" style="height: 40vh;">
-    <table class="table table-hover align-middle" id="tbItems">
-        <thead class="text-white text-center" style="background-color: #0E4749;">
-            <tr>
-                <th scope="col" class="col-1">Cod.</th>
-                <th scope="col" class="col-5">Descripción</th>
-                <th scope="col" class="col-1">Precio Und.</th>
-                <th scope="col" class="col-1">Cant.</th>
-                <th scope="col" class="col-1">Itbis</th>
-                <th scope="col" class="col-1">Monto</th>
-                <th scope="col" class="col-2">Acción</th>
-            </tr>
-        </thead>
-        <tbody id="tbbody" class="text-center" >
-
-        </tbody>
-    </table>
-</div>
-
-<div class="container mx-auto px-0">
-    <div class="row mb-3 mt-3 justify-content-end">
-        <label for="inputSubtotal" class="col-sm-2 col-form-label text-end">Sub-Total RD$:</label>
+    <div class="row mb-2 mx-0 align-items-center">
         <div class="col-sm-2">
-          <input type="number" class="form-control" id="inputSubtotal" readonly>
+            <input type="number" name="id" id="id_item" class="form-control" placeholder="Cod. Item">
+        </div>
+        <button type="button" class="btn btn-primary col-sm-1" id="btbuscaritem"> Buscar</button>
+    </div>
+    
+    <div class="col-12 border overflow-auto" style="height: 40vh;">
+        <table class="table table-hover align-middle" id="tbItems">
+            <thead class="text-white text-center" style="background-color: #0E4749;">
+                <tr>
+                    <th scope="col" class="col-1">Cod.</th>
+                    <th scope="col" class="col-5">Descripción</th>
+                    <th scope="col" class="col-1">Precio Und.</th>
+                    <th scope="col" class="col-1">Cant.</th>
+                    <th scope="col" class="col-1">Itbis</th>
+                    <th scope="col" class="col-1">Monto</th>
+                    <th scope="col" class="col-2">Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tbbody" class="text-center" >
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mx-auto px-0">
+        <div class="row mb-3 mt-3 justify-content-end">
+            <label for="inputSubtotal" class="col-sm-2 col-form-label text-end">Sub-Total RD$:</label>
+            <div class="col-sm-2">
+            <input type="number" class="form-control" id="inputSubtotal" value="0.00" readonly>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-end">
+            <label for="inputDescuento" class="col-sm-2 col-form-label text-end">Descuento RD$:</label>
+            <div class="col-sm-2">
+            <input type="number" class="form-control" id="inputDescuento" value="0.00">
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-end">
+            <label for="inputTotal" class="col-sm-2 col-form-label text-end">Total RD$:</label>
+            <div class="col-sm-2">
+            <input type="number" class="form-control" id="inputTotal" value="0.00" readonly>
+            </div>
         </div>
     </div>
-    <div class="row mb-3 justify-content-end">
-        <label for="inputDescuento" class="col-sm-2 col-form-label text-end">Descuento RD$:</label>
-        <div class="col-sm-2">
-          <input type="number" class="form-control" id="inputDescuento">
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Esta seguro que desea crear esta nueva cotización?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnGuardarCotizacion">Guardar</button>
+            </div>
+            </div>
         </div>
     </div>
-    <div class="row mb-3 justify-content-end">
-        <label for="inputTotal" class="col-sm-2 col-form-label text-end">Total RD$:</label>
-        <div class="col-sm-2">
-          <input type="number" class="form-control" id="inputTotal" readonly>
-        </div>
+
+    <br>
+
+    <div class="row gap-2 mx-0 px-5 justify-content-end">
+        <button type="button" class="btn btn-success col-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Guardar
+        </button>
+        <button type="button" class="btn btn-primary col-1 disabled" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn_imprimir">
+            Imprimir
+        </button>
+        <a class="btn btn-secondary col-1" href="{% url 'gestion cotizaciones' %}">Volver</a>
     </div>
-</div>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar cambios</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            ¿Esta seguro que desea crear esta nueva categoría?
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-success">Guardar</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<br>
-
-
-<div class="d-grid col-sm-8 gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Guardar
-    </button>
-    <a class="btn btn-secondary" href="{# url 'gestion categorias' #}">Volver</a>
-</div>
+    <br>
+    
 {% endblock %}
 {% block script %}
 <script src="{% static '/js/validationscript.js' %}"></script>

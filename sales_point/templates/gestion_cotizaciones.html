@@ -4,8 +4,8 @@
 
 {% block content %}
     
-    <div class="row">
-        <div class="col-md-3">
+    <div class="row mx-0 align-items-center">
+        <div class="col-md-3" style="padding-left: 0px;">
             <select class="form-select" id="inputGroupSelect01">
                 {% for field in form %}
                 <option value="{{field.label}}" selected>{{field.label}}</option>
@@ -13,7 +13,7 @@
             </select>
         </div>
         <div class="col-md-7">
-            <div class="input-group mb-3 ">
+            <div class="input-group ">
                 <input type="text" class="form-control" aria-label="Text input with dropdown button">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
             </div>

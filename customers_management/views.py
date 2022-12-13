@@ -354,14 +354,14 @@ def obtener_cliente(request, id_tipo_documento, no_documento):
 
     if request.method == 'GET':
 
-        cliente= get_object_or_404(Cliente,tipo_documento= id_tipo_documento, iddocumento= no_documento)
+        cliente= get_object_or_404(Cliente, tipo_documento= id_tipo_documento, iddocumento= no_documento)
 
         if cliente.tipo == 1: # Empresa
 
-            json_cliente = {'fullname':cliente.razon_social, 'telefono':cliente.telefono}
+            json_cliente = {'id':cliente.id,'fullname':cliente.razon_social, 'telefono':cliente.telefono}
 
         else: # Persona
         
-            json_cliente = {'fullname':cliente.nombre+' '+cliente.apellido1+' '+cliente.apellido2, 'telefono':cliente.telefono}
+            json_cliente = {'id':cliente.id, 'fullname':cliente.nombre+' '+cliente.apellido1+' '+cliente.apellido2, 'telefono':cliente.telefono}
         
         return JsonResponse(json_cliente)

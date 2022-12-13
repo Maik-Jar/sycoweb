@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\bpaez\OneDrive - Costa Farms\Desktop\SycoWeb\venv"
+VIRTUAL_ENV="C:\Users\maikr\OneDrive\Escritorio\sycoweb\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

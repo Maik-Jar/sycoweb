@@ -14,86 +14,86 @@
         <link rel="stylesheet" href="{% static '/style/css/sidebars.css' %}" >
 
     </head>
-    <body>
-        <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #0E4749;">
+    <body style="height: 100vh;">
+        <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #0E4749; height: 7%;">
             <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-4" href="#">Company name</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
         </header>
 
-        <div class="container-fluid">
-            <div class="row">
-                <nav id="sidebarMenu" class="col-md-4 col-lg-3 d-md-block bg-light sidebar collapse ">
-                <div class="position-sticky pt-3 sidebar-sticky p-3 bg-white fs-5">
-                    <ul class="list-unstyled ps-0">
-                    <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Cartera de Clientes
-                        </button>
-                        <div class="collapse" id="dashboard-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="{% url 'gestion clientes' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Clientes</a></li>
-                            <li><a href="{% url 'gestion tipo cliente' %}" class="link-dark d-inline-flex text-decoration-none rounded">Tipos de Clientes</a></li>
-                            <li><a href="{% url 'gestion tipo documento' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Documentos</a></li>
+        <div class="container-fluid px-0" style="min-height: 93%; width: 100%;">
+            <div class="row mx-0" style="max-width: 100%; min-height: 93vh;">
+                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse px-0">
+                    <div class="position-sticky pt-3 sidebar-sticky p-2 fs-4" style="height: 100%; background-color: #146467;">
+                        <ul class="list-unstyled ps-0 text-white">
+                            <li class="mb-1">
+                                <button class="fs-5 btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                                Cartera de Clientes
+                                </button>
+                                <div class="collapse" id="dashboard-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="{% url 'gestion clientes' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Clientes</a></li>
+                                    <li><a href="{% url 'gestion tipo cliente' %}" class="link-dark d-inline-flex text-decoration-none rounded">Tipos de Clientes</a></li>
+                                    <li><a href="{% url 'gestion tipo documento' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Documentos</a></li>
+                                </ul>
+                                </div>
+                            </li>
+                            <li class="mb-1">
+                                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                                Productos & Servicios
+                                </button>
+                                <div class="collapse" id="home-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="{% url 'gestion impuestos'%}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Impuestos</a></li>
+                                    <li><a href="{% url 'gestion categorias' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Categorías</a></li>
+                                    <li><a href="{% url 'gestion servicios' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Servicios</a></li>
+                                    <li><a href="{% url 'gestion productos' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Productos</a></li>
+                                </ul>
+                                </div>
+                            </li>
+                            <li class="mb-1">
+                                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                                Facturación
+                                </button>
+                                <div class="collapse" id="orders-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="{% url 'gestion cotizaciones' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Cotizaciones</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
+                                </ul>
+                                </div>
+                            </li>
+                        <li class="border-top my-3"></li>
+                            <li class="mb-1">
+                                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fs-5" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                                Account
+                                </button>
+                                <div class="collapse" id="account-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
+                                    <li><a href="{% url 'signout' %}" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
+                                </ul>
+                                </div>
+                            </li>
                         </ul>
-                        </div>
-                    </li>
-
-                    <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                        Productos & Servicios
-                        </button>
-                        <div class="collapse" id="home-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="{% url 'gestion impuestos'%}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Impuestos</a></li>
-                            <li><a href="{% url 'gestion categorias' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Categorías</a></li>
-                            <li><a href="{% url 'gestion servicios' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Servicios</a></li>
-                            <li><a href="{% url 'gestion productos' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Productos</a></li>
-                        </ul>
-                        </div>
-                    </li>
-                    
-                    <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                        Facturación
-                        </button>
-                        <div class="collapse" id="orders-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="{% url 'gestion cotizaciones' %}" class="link-dark d-inline-flex text-decoration-none rounded">Gestión de Cotizaciones</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
-                        </ul>
-                        </div>
-                    </li>
-                    <li class="border-top my-3"></li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                        Account
-                        </button>
-                        <div class="collapse" id="account-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
-                            <li><a href="{% url 'signout' %}" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
-                        </ul>
-                        </div>
-                    </li>
-                    </ul>
-                </div>
+                    </div>
                 </nav>
             
-                <main class="col-md-8 ms-sm-auto col-lg-9 px-md-4">
+                <main class="col-md-10 mx-0 col-lg-10" style="min-height: 93vh; padding: 0px 12px 0px 24px;">
                     
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
-                </div>
-                
-                {% block content %}
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Dashboard</h1>
+                    </div>
 
-                {% endblock %}
+                    <div style="height: 82vh; overflow-y: auto;">
+                    {% block content %}
+
+                    {% endblock %}
+                    </div>
                 </main>
             </div>
         </div>

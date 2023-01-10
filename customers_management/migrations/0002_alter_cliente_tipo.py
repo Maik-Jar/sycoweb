@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='cliente',
             name='tipo',
-            field=models.BinaryField(default=0, editable=True),
+            field=models.BooleanField(default=True),
         ),
     ]

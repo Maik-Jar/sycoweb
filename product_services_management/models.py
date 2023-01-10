@@ -15,6 +15,7 @@ class Impuesto(models.Model):
         return self.nombre
 
 class Item(models.Model):
+    
     TIPO_CHOiCES= [(1, 'Servicio'),
                     (2, 'Articulo')
                 ]

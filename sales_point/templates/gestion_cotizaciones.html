@@ -38,8 +38,8 @@
         <tbody>
             {% for cot in cotizaciones %}
             <tr>
-                <th scope="row" colspan="2">{{cot.agnio|date:"Y"}}-{{cot.numero}}</th>
-                <td colspan="2">{{cot.cliente}}</td>
+                <th scope="row" colspan="2">{{cot.agnio}}-{{cot.numero}}</th>
+                <td colspan="2">{% if cot.cliente == None %}{{cot.nombre_cliente}}{% else %}{{cot.cliente}}{% endif %}</td>
                 <td>{{cot.fecha_hora|date:"d/m/y - h:i:s a"}}</td>
                 <td>{% if cot.estado %}Activo{% else %}Inactivo{% endif %}</td>
                 <td>

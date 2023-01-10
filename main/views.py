@@ -9,32 +9,29 @@ from django.contrib.auth.decorators import login_required
 def homepage(request):
 
     if request.method == 'GET':
-
         return render(request, 'base.html')
-    else:
-        print(request.POST)
+
+    if request.method == 'POST':
         return HttpResponse(request.POST)
 
 def signin(request):
 
     if request.method == 'GET':
-    
         return render(request, 'login.html', {'form':AuthenticationForm})
 
-    else:
-        
+    if request.method == 'POST': 
         user= authenticate(request, username= request.POST['username'], password= request.POST['password'])
         
         if user is None:
-
+            
             return render(request, 'login.html', {
                 'form':AuthenticationForm,
                 'error': 'Usuario o Contraseña incorrecto.'
             })
-        else:
+        
+        if user is not None:
 
             login(request, user)
-
             return redirect('homepage')
 
 @login_required

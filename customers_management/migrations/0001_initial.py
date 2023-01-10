@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Cliente',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tipo', models.BinaryField(default=0)),
+                ('tipo', models.AutoField(default=0)),
                 ('estado', models.BooleanField(default=True)),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('actualizado', models.DateTimeField(auto_now=True)),

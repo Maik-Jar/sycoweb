@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
             name='Empresa',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rnc', models.BigIntegerField(unique=True)),
+                ('rnc', models.IntegerField(unique=True)),
                 ('razon_social', models.CharField(max_length=100, unique=True)),
                 ('telefono', models.CharField(max_length=12)),
                 ('direccion', models.CharField(max_length=60, null=True)),
